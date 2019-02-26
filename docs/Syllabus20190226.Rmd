@@ -1,0 +1,135 @@
+---
+title: "社會科學統計方法授課大綱（107學年第2學期260940001）"
+author: "蔡佳泓"
+date: '`r format(Sys.time(), "%B %d, %Y")`'
+output: 
+   html_document:
+            toc: TRUE # table of content true
+toc_depth: 3  # upto three depths of headings (specified by #, ## and ###)
+number_sections: true  ## if you want number sections at each table header
+theme: united  # many options for theme, this one is my favorite.
+highlight: tango  # specifies the syntax highlighting style
+---
+
+```{r setup, include=FALSE, echo=FALSE}
+library(knitr)
+library(kableExtra)
+knitr::opts_chunk$set(echo = TRUE)
+options(knitr.table.format = "html")
+```
+
+# 前言
+由於人類越來越重視數據做為決策的依據，因此資料科學最近變得非常熱門，但是早在資料科學出現之前，統計學已經幫助我們描述資料以及找出變數之間的關係，而學好統計學能避免被龐大的資料所困惑。不論是資料科學或是統計學，都需要培養基本的技能，才能透視資料後面的故事。
+ 
+`R`是免費的統計軟體，近年來廣被政治、經濟、醫學、管理等領域使用，有豐富的網路資源，不僅可用於各種統計模型，而且資料容易轉化為圖形，也就是視覺化非常容易，更可延伸至大數據分析。例如針對不同顏色鑽石的克拉數，用`ggplot2`畫成一個散佈圖：
+
+```{r echo=T, message=FALSE, warning=FALSE}
+require(ggplot2)
+qplot(carat, data = diamonds, geom = "histogram",  fill = color)
+```
+
+本課程目的是用`R`實作統計，讓修課者同時學習統計以及操作`R`，未來能夠進一步延伸到其他的領域。  
+`R`與統計模型的網路資源非常豐富，對於同一個問題有不同的處理方式，授課老師可能只了解其中之一，因此上課內容不見得是唯一解決問題的方式，歡迎修課者隨時提出更佳的方法。
+課堂上有部分時間講解統計以及研究設計，有部分時間實際操作軟體，希望能讓修課者做中學。對於更深入的統計原理有興趣的同學可請教本所老師，或者至其他系所修課。  
+
+# 課程目標  
+不論是統計或者資料分析，背後都需要有嚴謹的研究設計，本課程希望達到下列目標，但是也會時時提醒修課者培養看問題以及回答問題的敏銳度：  
+
+ - 瞭解研究設計
+ - 瞭解如何用`R`描述資料  
+ - 瞭解如何用`R`整理資料    
+ - 暸解如何用`R`進行相關分析  
+ - 瞭解如何用`R`進行線性迴歸模型  
+ - 瞭解如何用`R`進行非線性迴歸模型  
+ - 瞭解如何用`R`分析加權資料
+
+# 上課方式  
+本課程主要由教師於課堂上講授並且現場操作示範，請修課者盡量自行準備筆電上課，課後可以到電腦教室複習。
+
+## 評分方式
+
+1. 作業 70%
+2. 期末報告 30% 
+
+ - 每次上課後會有作業，請在下次上課之前繳交`R`的語法檔給助教以驗證執行。  
+ - 期末報告的要求是展示對於資料以及統計的學習成果。每一組應該有2到3位同學，每一組選擇一筆現有資料，或者自行建立資料，然後以`R`描述資料型態，並且說明變數之間可能的關係，最後以線性或者非線性迴歸模型檢證假設。
+
+## 課程進度
+```{r schedule1, echo=FALSE}
+schedule<-read.table('schedule2019.txt', sep=';', header=T)
+```
+
+```{r schedule2, echo=FALSE}
+  kable(schedule) %>%
+   kable_styling(full_width=F, bootstrap_options = "striped", font_size=14) 
+```
+# 課程資訊
+
+## 上課時間
+2/26-6/26，星期二，9:10-12:00
+
+## 上課地點
+270813
+
+## 討論時間
+原則上訂在星期三中午十二點到一點，研究室位於綜合院館北棟5樓。如果更動時間將通知，需要預約其他時間請email tsaich AT nccu.edu.tw。  
+
+## 助教
+劉明浩（東亞所博士生）
+
+## 參考書目
+1. 蔡佳泓，2014，*基礎統計分析：R 程式在社會科學之應用*，雙葉書廊。
+2. Gareth James, Daniela Witten, Trevor Hastie, and Robert Tibshirani, 2013. *An Introduction to Statistical Learning with Applications in R* (http://www-bcf.usc.edu/~gareth/ISL/ISLR%20First%20Printing.pdf)
+3. John Verzani, 2001. *Using R for Introductory Statistics*. (https://cran.r-project.org/doc/contrib/Verzani-SimpleR.pdf)
+
+# 網路資源
+台灣資料愛好者年會在2014年提供的ETL（Extract-Transform-Load）講義，詳細說明資料萃取、轉置以便分析的過程。透過執行下列程式碼，可閱讀ETL之投影片。請先執行下載套件的程式碼：
+```{r ETL1, eval=FALSE}
+deps <- available.packages("http://taiwanrusergroup.github.io/R-2014/src/contrib")[1,"Imports"]
+pkgs <- strsplit(gsub("\\s", "", deps), ",")[[1]]
+for(i in seq_along(pkgs)) {
+  # You can change your favorite repository
+  if (require(pkgs[i], character.only = TRUE)) next
+  install.packages(pkgs[i], repo = "http://cran.csie.ntu.edu.tw")
+}
+install.packages('DSC2014Tutorial', repo = 'http://taiwanrusergroup.github.io/R-2014', type = 'source')
+```
+然後依序執行下列程式碼，結果會出現在瀏覽器的網頁：
+```{r ETL2, eval=FALSE}
+library(DSC2014Tutorial)
+slides("Basic")
+slides("ETL1")
+slides("ETL2")
+slides("DataAnalysis")
+slides("Visualization1")
+slides("Visualization2")
+slides("Visualization3")
+```
+長庚大學資訊管理系的曾意儒教授所撰寫的[資料科學與R語言](http://yijutseng.github.io/DataScienceRBook/index.html)，結構分明，值得參考。
+同時鼓勵參考Hastie等人之前寫的有關統計與機器學習的書：Trevor Hastie, Robert Tibshirani, and Jerome Friedman, 2008. *The Elements of Statistical Learning: Data Mining, Inference, and Prediction* (https://web.stanford.edu/~hastie/Papers/ESLII.pdf)
+
+# 上課講義與資料
+請到我的Github下載或是線上閱讀講義，並且下載相應的資料到電腦主機：
+https://github.com/TsaiChiahung/SocialStat2019
+或者是到http://rpubs.com/chiahung_tsai/ 閱讀上課內容。
+
+## 裝設RStudio
+`R`本身介面並不太友善，RStudio是一個免費的IDE，下載`R`之後請下載RStudio (http://rstudio.com)。
+如果喜歡把輸出結果放在右上角，可在RStudio設定：View-->Panes-->Console on Right
+
+## 安裝相關套件
+請在上課前安裝一些常用的套件。有些套件包含其他的套件，所以可以省一些工作。例如輸入：
+```
+mypkg <- c('foreign','ISLR','tidyverse','Zeligverse','car','ggplot2')
+install.packages('mypkg')
+
+```
+
+## 設定Rproj
+`R`可讓使用者在R-->環境設定中，設定要讀取資料來自的資料夾，或是儲存資料之前指定工作目錄，以確定分析結果例如畫圖可以儲存到特定的資料夾。也可以用語法表示如下：
+```
+setwd('C:/my documents/mywork')
+
+```
+RStudio可以建立一個計劃案，連結特定的資料夾。每次只要打開這個計劃案，就不需要每換一部電腦就要改變資料夾的路徑，資料讀取、結果儲存都會到這個計畫案所在的資料夾。File-->New Project-->連結既有的directory
+
