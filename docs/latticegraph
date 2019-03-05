@@ -1,0 +1,5 @@
+# scan data
+# graphics in lattice package
+barchart,bwplot,cloud,contourplot,densityplot,dotplot,histogram,levelplot,parallel,splom,stripplot,xyplot,wireframe
+# levels of difficulty 1-5
+1,1,3,3,2,1,1,2,4,4,2,2,3
